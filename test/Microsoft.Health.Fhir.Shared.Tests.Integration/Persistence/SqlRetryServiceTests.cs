@@ -377,7 +377,7 @@ END
 
                 using var sqlCommand = new SqlCommand();
                 sqlCommand.CommandText = $"dbo.{storedProcedureName}";
-                var result = await sqlRetryService.ExecuteReaderAsync<long, SqlRetryService>(
+                var result = await sqlRetryService.ExecuteReaderAsync<long>(
                     sqlCommand,
                     testConnectionInitializationFailure ? ReaderToResult : ReaderToResultAndKillConnection,
                     logger,
@@ -415,7 +415,7 @@ END
                 try
                 {
                     _output.WriteLine($"{DateTime.Now:O}: Start executing ExecuteSqlDataReader.");
-                    await sqlRetryService.ExecuteReaderAsync<long, SqlRetryService>(
+                    await sqlRetryService.ExecuteReaderAsync<long>(
                         sqlCommand,
                         testConnectionInitializationFailure ? ReaderToResult : ReaderToResultAndKillConnection,
                         logger,
