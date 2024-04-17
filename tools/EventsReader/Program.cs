@@ -15,13 +15,13 @@ namespace Microsoft.Health.Internal.Fhir.EventsReader
     {
         private static readonly string _connectionString = ConfigurationManager.ConnectionStrings["Database"].ConnectionString;
         private static SqlRetryService _sqlRetryService;
-        private static SqlStoreClient<SqlServerFhirDataStore> _store;
+        private static SqlStoreClient _store;
 
         public static void Main()
         {
             ISqlConnectionBuilder iSqlConnectionBuilder = new Sql.SqlConnectionBuilder(_connectionString);
             _sqlRetryService = SqlRetryService.GetInstance(iSqlConnectionBuilder);
-            _store = new SqlStoreClient<SqlServerFhirDataStore>(_sqlRetryService, NullLogger<SqlServerFhirDataStore>.Instance);
+            _store = new SqlStoreClient(_sqlRetryService, NullLogger<SqlStoreClient>.Instance);
 
             var totalsKeys = 0L;
             var totalTrans = 0;
