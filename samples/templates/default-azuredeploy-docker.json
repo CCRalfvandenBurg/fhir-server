@@ -494,7 +494,7 @@
                     "type": "databases"
                 },
                 {
-                    "condition": "[equals(parameters('solutionType'),'FhirServerSqlServer')]",
+                    "condition": "[and(equals(parameters('solutionType'),'FhirServerSqlServer'),equals(parameters('sqlServerNewOrExisting'), 'new'))]",
                     "apiVersion": "2014-04-01",
                     "dependsOn": [
                         "[variables('sqlServerDerivedName')]"
