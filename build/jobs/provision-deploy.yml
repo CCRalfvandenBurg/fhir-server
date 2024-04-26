@@ -126,7 +126,9 @@ jobs:
           try {
             New-AzResourceGroupDeployment -Name $deploymentName -ResourceGroupName $resourceGroupName -TemplateFile $(System.DefaultWorkingDirectory)/samples/templates/default-azuredeploy-docker.json -TemplateParameterObject $templateParameters -Verbose
           } catch {
+            Write-Host "Error during deployment: $_"
             if ("${{ parameters.sql }}" -eq "true") {
+              Write-Host "Retrying deployment with new SQL Server"
               $templateParameters["sqlServerNewOrExisting"] = "new"
               New-AzResourceGroupDeployment -Name $deploymentName -ResourceGroupName $resourceGroupName -TemplateFile $(System.DefaultWorkingDirectory)/samples/templates/default-azuredeploy-docker.json -TemplateParameterObject $templateParameters -Verbose
             }
